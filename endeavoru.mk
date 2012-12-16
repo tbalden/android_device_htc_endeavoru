@@ -177,6 +177,10 @@ PRODUCT_PACKAGES := \
     setup_fs \
     com.android.future.usb.accessory
 
+# Camera wrapper
+PRODUCT_PACKAGES += \
+    camera.tegra
+
 # Bluetooth tools
 PRODUCT_PACKAGES := \
     l2ping \
