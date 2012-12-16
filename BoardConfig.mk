@@ -20,6 +20,10 @@
 # definition file).
 #
 
+# This variable is set first, so it can be overridden
+# by BoardConfigVendor.mk
+USE_CAMERA_STUB := true
+
 # inherit from the proprietary version
 -include vendor/htc/endeavoru/BoardConfigVendor.mk
 
@@ -68,7 +72,6 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 2302672896
 BOARD_FLASH_BLOCK_SIZE := 4096
 
 BOARD_VOLD_MAX_PARTITIONS := 20
-BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/fsl-tegra-udc/gadget/lun0/file
 
 # Wifi related defines
@@ -85,24 +88,22 @@ WIFI_FIRMWARE_LOADER             := ""
 COMMON_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
 endif
 
+# Prebuilt kernel bin
 TARGET_PREBUILT_KERNEL := device/htc/endeavoru/kernel
 
 # Avoid the generation of ldrcc instructions
 NEED_WORKAROUND_CORTEX_A9_745320 := true
 
-TARGET_PROVIDES_LIBAUDIO := true
-BOARD_USES_GENERIC_AUDIO := false
-BOARD_USES_ALSA_AUDIO := false
+# Audio(prebuilt)
+COMMON_GLOBAL_CFLAGS += -DMR0_AUDIO_BLOB
 
+# HTC specific
 BOARD_USE_NEW_LIBRIL_HTC := true
-
 COMMON_GLOBAL_CFLAGS += -DHTCLOG
 
+# Sensors invensense
 BOARD_USES_GENERIC_INVENSENSE := false
 
+# Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/htc/endeavoru/bluetooth
-
-BOARD_HAS_NO_SELECT_BUTTON := true
-# Use this flag if the board has a ext4 partition larger than 2gb
-BOARD_HAS_LARGE_FILESYSTEM := true
