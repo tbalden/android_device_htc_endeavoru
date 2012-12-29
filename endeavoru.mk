@@ -171,7 +171,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/nfcee_access.xml:system/etc/nfcee_access.xml
 
 # Other extra packages
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     librs_jni \
     make_ext4fs \
     setup_fs \
@@ -182,7 +182,7 @@ PRODUCT_PACKAGES += \
     camera.tegra
 
 # Bluetooth tools
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     l2ping \
     hciconfig \
     hcitool
