@@ -30,6 +30,7 @@ lib/libposteffect.so
 lib/libhtc_ril.so
 lib/libhtc_rilhook.so
 lib/libgps.so
+lib/libgpsservices.so
 lib/libsupllocationprovider.so
 lib/libcall_volume.so
 lib/libsensors_mpl.so
