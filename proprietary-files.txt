@@ -222,6 +222,8 @@ lib/libcameraface.so
 lib/libscalado.so
 lib/libhtcsurfaces.so
 lib/libposteffect.so
+lib/libOlaEngineNew.so
+lib/libhtc_dis.so
 
 #Face detection
 vendor/pittpatt/models/detection/multi_pose_face_landmark_detectors.7/left_eye-y0-yi45-p0-pi45-r0-ri20.lg_32/full_model.bin
