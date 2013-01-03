@@ -155,10 +155,13 @@ lib/libcall_volume.so
 
 #GPS/AGPS
 app/PGPSDownloader.apk
+bin/cplc_main
 bin/navl_server
 bin/RXN_IntApp
 bin/pathconfigfile.txt
 bin/GPSCConfigFile.cfg
+bin/GPSCConfigFile.cfg_pgps
+bin/GpsConfigFile.txt
 bin/patch-X.0.ce
 etc/gps/agps.truststore
 etc/gps/agps.truststore_lab
@@ -167,9 +170,13 @@ etc/gps/RXN/license.key
 etc/gps/RXN/MSLConfig.txt
 etc/gps/RXN/security.key
 lib/hw/gps.tegra.so
+lib/libmcphalgps.so
 lib/libgps.so
 lib/libgpsservices.so
 lib/libsupllocationprovider.so
+
+#FM(TI)
+lib/libmcphal.so
 
 #GRALLOC
 lib/hw/gralloc.tegra.so
