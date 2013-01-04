@@ -185,7 +185,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     l2ping \
     hciconfig \
-    hcitool
+    hcitool \
+    libbt-vendor
 
 # NFC packages
 PRODUCT_PACKAGES += \
