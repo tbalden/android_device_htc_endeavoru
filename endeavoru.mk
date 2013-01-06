@@ -170,6 +170,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/nfcee_access.xml:system/etc/nfcee_access.xml
 
+# Torch
+PRODUCT_PACKAGES += \
+    Torch
+
 # Other extra packages
 PRODUCT_PACKAGES += \
     librs_jni \
