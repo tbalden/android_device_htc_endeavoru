@@ -59,3 +59,5 @@
 /dev/block/mmcblk0p2        0640   root       system
 /dev/ttyHSUSB1              0600   system     system
 /dev/ttyHSUSB3              0660   autobot_access  autobot_access
+# wifi
+/dev/rfkill                 0660   root       wifi
