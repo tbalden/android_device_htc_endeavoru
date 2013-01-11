@@ -83,7 +83,7 @@ int ti_op(bt_vendor_opcode_t opcode, void **param) {
             close(hci_tty_fd);
             return 0;
         /* Since new stack expects fwcfg_cb we are returning SUCCESS here
-         * in actual, firmware download is already happened when /dev/hci_tty
+         * in actual, firmware download is already happened when /dev/tihci
          * opened.
          */
         case BT_VND_OP_FW_CFG:
