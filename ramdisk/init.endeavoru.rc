@@ -253,13 +253,6 @@ on boot
     write /sys/module/cpu_tegra3/parameters/auto_hotplug 1
     write /sys/module/cpuidle/parameters/lp2_in_idle 1
 
-    # Discretix DRM change start
-    mkdir /data/DxDrm
-    mkdir /data/DxDrm/fuse
-    chmod 555 /data/DxDrm
-    mkdir /sdcard/download
-    # Discretix DRM change end
-
 # AUD
     mkdir /data/audio
     chmod 755 /data/audio
@@ -296,8 +289,6 @@ service nvm-server /system/bin/nvm_server
     user root
     group root
     oneshot
-
-service modem-daemon /system/bin/modemd
 
 # Compass/accelerometer daemon
 service akmd /system/bin/akmd
@@ -411,15 +402,7 @@ service L2PE /system/bin/l2_profile_exchange handset wlan1
     disabled
     oneshot
 # HTC_WIFI_END
-
-# Make sure we startup btld before hcid
-# Set tartget address to emulator host loopback IF
-# Limit baudrate to 460800 to ensure reliable uart operation
-service btld /system/bin/btld -lpm 1 -hb 3000000 -hp /dev/ttyHS2
-    user root
-    group bluetooth net_bt_admin net_bt_stack
-    disabled
-    onrestart restart bluetoothd
+# Wi-Fi--
 
 # HTC Panu supports for Bluetooth Bluez
 service dhcpcd_bnep0 /system/bin/dhcpcd -ABKL
@@ -450,14 +433,7 @@ service poweron_modem /system/bin/poweron_modem_fls.sh /data/modem_work/
 service uim /system/bin/uim-sysfs
     class core
     user root
-    group media bluetooth net_bt_stack
-    oneshot
-
-# hs_uart
-service hs_uart /system/bin/hs_uart
-    class main
-    user root
-    group system misc input
+    group media bluetooth
     oneshot
 
 service nav /system/bin/navl_server --android_log NAVD-p3 -nav\"-c/system/bin/pathconfigfile.txt\"
@@ -506,21 +482,6 @@ on property:tf.enable=y
     mkdir /data/tf
     start tf_daemon
 
-# Discretix DRM change start
-service dx_drm_server /system/bin/DxDrmServerIpc -f -o allow_other /data/DxDrm/fuse
-    class main
-# Discretix DRM change end
-
-# OMA DRM change start
-service fusermount /system/bin/fusermount -u /data/htcfs
-    disabled
-    oneshot
-
-service htcfs /system/bin/htcfs /data/htcfs -f -o allow_other
-    class main
-    onrestart restart fusermount
-# OMA DRM change end
-
 # Create filesystems if necessary
 service setup_fs /system/bin/setup_fs \
         /dev/block/platform/sdhci-tegra.3/by-name/UDA \
@@ -529,16 +490,6 @@ service setup_fs /system/bin/setup_fs \
     class core
     user root
     group root
-    oneshot
-
-service cand /system/bin/cand
-    class main
-    user root
-
-service post_boot /system/bin/sh /system/etc/post_boot.sh
-    class main
-    user root
-    disabled
     oneshot
 
 on property:ro.boot.wipeddata=0
@@ -562,35 +513,4 @@ on property:init.svc.bootanim=stopped
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 51000
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1500000
     write /sys/module/cpu_tegra3/parameters/auto_hotplug 1
-    start post_boot
     start pnpmgr
-
-service shutdown /system/bin/shutdown
-    user root
-    group root
-    disabled
-    oneshot
-
-service charging /system/bin/charging
-    user root
-    group root
-    disabled
-    oneshot
-
-# For USB internet sharing
-service udhcpd /system/bin/udhcpd
-    disabled
-    oneshot
-
-service netsharing_on /system/bin/netsharing net on
-    disabled
-    oneshot
-
-service netsharing_off /system/bin/netsharing net off
-    disabled
-    oneshot
-
-service netsharing_pass /system/bin/netsharing net_pass on
-    disabled
-    oneshot
-
