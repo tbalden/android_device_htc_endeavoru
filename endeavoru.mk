@@ -148,9 +148,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/config/gps.conf:system/etc/gps.conf \
     $(LOCAL_PATH)/config/nvcamera.conf:system/etc/nvcamera.conf \
     $(LOCAL_PATH)/config/nvram_4329.txt:system/etc/nvram_4329.txt \
-    $(LOCAL_PATH)/config/nvram_4330.txt:system/etc/nvram_4330.txt \
-    $(LOCAL_PATH)/config/p2p_supplicant.conf:system/etc/wifi/p2p_supplicant.conf \
-    $(LOCAL_PATH)/config/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
+    $(LOCAL_PATH)/config/nvram_4330.txt:system/etc/nvram_4330.txt
 
 # audio
 PRODUCT_COPY_FILES += \
