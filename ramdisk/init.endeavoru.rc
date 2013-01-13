@@ -29,6 +29,15 @@ on early-init
     mkdir /mnt/usb 0000 system system
 
 on init
+
+# NETWORK: NAT setting
+# To prevent out of WINDOW ACK from making
+# connection tracking to treat them as INVALID packet
+    write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
+
+# Wifi: Disable the IPv6 of p2p0 interface
+    write /proc/sys/net/ipv6/conf/p2p0/disable_ipv6 1
+
     # Change mode & owner of HTC Debug Driver node
     chmod 0664 /proc/driver/hdf
     chown root system /proc/driver/hdf
