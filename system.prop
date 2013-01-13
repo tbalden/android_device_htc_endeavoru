@@ -63,8 +63,6 @@ ro.ril.hspa.mac.ehs=1
 ro.opengles.version=131072
 
 wifi.interface=wlan0
-wifi.softap.interface=wlan1
-wifi.softapconcurrent.interface=wlan1
 
 # RIL hack
 ro.telephony.ril.v3=signalstrength,skipbrokendatacall
@@ -166,9 +164,6 @@ ro.fat_rsvd=66
 ro.bt.chipset=TI 1283
 ro.bt.stack=TI BlueZ
 ro.bt.stack.version=1.1.0.3
-
-# Wireless setting
-wifi.HostapdStarted=0
 
 # Support HW reset dialog
 ro.product.hwreset=1
