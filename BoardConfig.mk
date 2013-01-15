@@ -30,6 +30,9 @@ BOARD_USES_GENERIC_AUDIO := true
 
 TARGET_BOARD_PLATFORM := tegra
 
+#custom init rc
+TARGET_PROVIDES_INIT_RC := true
+
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true

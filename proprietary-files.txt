@@ -14,6 +14,10 @@ bin/poweron_modem_fls.sh
 lib/libhtc_ril.so
 lib/libhtc_rilhook.so
 
+#Wifi stuff
+bin/initial_regdom.sh
+bin/iw
+bin/l2_profile_exchange
 
 #Invensense
 lib/libmllite.so

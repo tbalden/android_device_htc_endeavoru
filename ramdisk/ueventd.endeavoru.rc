@@ -1,3 +1,5 @@
+/dev/diag                   0660   radio      radio
+/dev/mux9                   0660   media      system
 /dev/tegra-throughput       0666   system     system
 /dev/knvmap                 0660   system     system
 /dev/nvmap                  0666   system     system
