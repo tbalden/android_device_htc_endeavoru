@@ -188,9 +188,6 @@ lib/hw/gralloc.tegra.so
 #HWComposer
 lib/hw/hwcomposer.tegra.so
 
-#Lights
-lib/hw/lights.tegra.so
-
 #Battery
 bin/htcbatt
 

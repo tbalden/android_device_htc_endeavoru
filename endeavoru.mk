@@ -181,6 +181,10 @@ PRODUCT_PACKAGES += \
     setup_fs \
     com.android.future.usb.accessory
 
+# lights
+PRODUCT_PACKAGES += \
+    lights.tegra
+
 # Camera wrapper
 PRODUCT_PACKAGES += \
     camera.tegra
