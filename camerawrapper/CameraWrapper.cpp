@@ -117,13 +117,13 @@ char * camera_fixup_setparams(int id, const char * settings)
     if(params.get("iso")) {
         const char* isoMode = params.get(android::CameraParameters::KEY_ISO_MODE);
         if(strcmp(isoMode, "ISO100") == 0)
-            params.set(android::CameraParameters::KEY_ISO_MODE, "100");
+            params.set(android::CameraParameters::KEY_ISO_MODE, "ISO100");
         else if(strcmp(isoMode, "ISO200") == 0)
-            params.set(android::CameraParameters::KEY_ISO_MODE, "200");
+            params.set(android::CameraParameters::KEY_ISO_MODE, "ISO200");
         else if(strcmp(isoMode, "ISO400") == 0)
-            params.set(android::CameraParameters::KEY_ISO_MODE, "400");
+            params.set(android::CameraParameters::KEY_ISO_MODE, "ISO400");
         else if(strcmp(isoMode, "ISO800") == 0)
-            params.set(android::CameraParameters::KEY_ISO_MODE, "800");
+            params.set(android::CameraParameters::KEY_ISO_MODE, "ISO800");
     }
 
     android::String8 strParams = params.flatten();
