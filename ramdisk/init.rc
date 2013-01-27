@@ -20,6 +20,9 @@ on early-init
 
 # create mountpoints
     mkdir /mnt 0775 root system
+    mkdir /storage 0050 root sdcard_r
+    # Create mountpoint so Dalvik can mark as slave in zygotes.
+    mount tmpfs tmpfs /storage mode=0050,uid=0,gid=1028
 
 on init
 
@@ -59,6 +62,7 @@ loglevel 8
 
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell 0700 shell shell
+    # Ensure permissions are set appropriately after device early-init.
     mkdir /storage 0050 root sdcard_r
 
     # Directory for putting things only root should see.
@@ -95,6 +99,14 @@ loglevel 8
     write /proc/sys/kernel/sched_rt_runtime_us 950000
     write /proc/sys/kernel/sched_rt_period_us 1000000
 
+# NETWORK: NAT setting
+# To prevent out of WINDOW ACK from making
+# connection tracking to treat them as INVALID packet
+    write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
+
+# Wifi: Disable the IPv6 of p2p0 interface
+    write /proc/sys/net/ipv6/conf/p2p0/disable_ipv6 1
+
 # Create cgroup mount points for process groups
     mkdir /dev/cpuctl
     mount cgroup none /dev/cpuctl cpu
@@ -123,6 +135,10 @@ loglevel 8
 # Allow everybody to read the xt_qtaguid resource tracking misc dev.
 # This is needed by any process that uses socket tagging.
     chmod 0644 /dev/xt_qtaguid
+
+# Change mode & owner of HTC Debug Driver node
+    chmod 0664 /proc/driver/hdf
+    chown root system /proc/driver/hdf
 
 on fs
 # mount mtd partitions
@@ -237,6 +253,18 @@ on post-fs-data
     # the following directory.
     mkdir /data/drm 0770 drm drm
 
+# +SSD_RIL: from Qualcomm socket path
+    mkdir /dev/socket/qmux_radio 0770 radio radio
+    mkdir /dev/socket/qmux_audio 0770 audio audio
+    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
+    mkdir /dev/socket/qmux_gps 0770 gps gps
+# -SSD_RIL: from Qualcomm socket path
+
+# +SSD_AUD: soundhound dump pcm
+    mkdir /data/audio 0775 media audio
+    chmod 2775 /data/audio
+# -SSD_AUD: soundhound dump pcm
+
     # If there is no fs-post-data action in the init.<device>.rc file, you
     # must uncomment this line, otherwise encrypted filesystems
     # won't work.
@@ -315,7 +343,14 @@ on boot
     chown system system /sys/class/leds/jogball-backlight/brightness
     chown system system /sys/class/leds/red/brightness
     chown system system /sys/class/leds/green/brightness
+    chown system system /sys/class/leds/amber/brightness
     chown system system /sys/class/leds/blue/brightness
+    chown system system /sys/class/leds/amber/blink
+    chown system system /sys/class/leds/green/blink
+    chown system system /sys/class/leds/button-backlight/blink
+    chown system system /sys/class/leds/amber/off_timer
+    chown system system /sys/class/leds/green/off_timer
+    chown system system /sys/class/leds/button-backlight/off_timer
     chown system system /sys/class/leds/red/device/grpfreq
     chown system system /sys/class/leds/red/device/grppwm
     chown system system /sys/class/leds/red/device/blink
@@ -325,6 +360,7 @@ on boot
     chown system system /sys/class/leds/red/device/grpfreq
     chown system system /sys/class/leds/red/device/grppwm
     chown system system /sys/class/leds/red/device/blink
+    chown system system /sys/class/leds/flashlight/brightness
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/module/sco/parameters/disable_esco
     chown system system /sys/kernel/ipv4/tcp_wmem_min
@@ -334,6 +370,24 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_rmem_def
     chown system system /sys/kernel/ipv4/tcp_rmem_max
     chown root radio /proc/cmdline
+
+# HTC SSD USB
+    chown system system /sys/class/android_usb/f_modem/on
+    chown system system /sys/class/android_usb/f_diag/on
+    chown system system /sys/class/android_usb/f_rmnet/on
+    chown system system /sys/devices/platform/android_usb/usb_disable
+
+# Set diag permissions
+    chown radio radio /dev/diag
+    chown radio radio /dev/diag_mdm
+    chown radio radio /dev/htcdiag
+    chown radio radio /dev/diag_arm9
+    chown radio radio /dev/btdiag
+    chmod 0660 /dev/diag
+    chmod 0660 /dev/diag_mdm
+    chmod 0660 /dev/htcdiag
+    chmod 0660 /dev/diag_arm9
+    chmod 0660 /dev/btdiag
 
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
@@ -438,6 +492,19 @@ service netd /system/bin/netd
 service debuggerd /system/bin/debuggerd
     class main
 
+service gsm0710mux /system/bin/gsm0710muxd -s /dev/ttyACM0 -v 5 -n 8 -m basic
+    class core
+    user radio
+    group radio cache inet misc
+    disabled
+
+service nvm-server /system/bin/nvm_server
+    class core
+    socket nvm-ctl stream 660 radio radio
+    user root
+    group root
+    oneshot
+
 service ril-daemon /system/bin/rild
     class main
     socket rild stream 660 root radio
@@ -454,6 +521,13 @@ service surfaceflinger /system/bin/surfaceflinger
     user system
     group graphics drmrpc
     onrestart restart zygote
+
+service hdmid /system/bin/hdmid
+    socket displayd stream 0660 root system graphics
+    disabled
+
+on property:ro.hdmi.enable=true
+    start hdmid
 
 service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
     class main
@@ -524,3 +598,27 @@ service mdnsd /system/bin/mdnsd
     socket mdnsd stream 0660 mdnsr inet
     disabled
     oneshot
+
+# HTC_WIFI_START
+service L2PE /system/bin/l2_profile_exchange handset wlan1
+    user root
+    group root
+    disabled
+    oneshot
+# HTC_WIFI_END
+
+# Bluetooth power up/down interface
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
+    chmod 0660                /sys/class/rfkill/rfkill0/state
+
+# Bluetooth
+    # UART device
+    chmod 0660 /dev/ttyHS2
+    chown bluetooth net_bt_stack /dev/ttyHS2
+
+    # Power up/down interface
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type

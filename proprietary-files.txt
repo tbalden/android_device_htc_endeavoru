@@ -19,6 +19,9 @@ bin/initial_regdom.sh
 bin/iw
 bin/l2_profile_exchange
 
+#Media link HD
+bin/hdmid
+
 #Invensense
 lib/libmllite.so
 lib/libinvensense_hal.so
@@ -161,6 +164,7 @@ lib/libcall_volume.so
 app/PGPSDownloader.apk
 bin/cplc_main
 bin/navl_server
+bin/rilposd
 bin/RXN_IntApp
 bin/pathconfigfile.txt
 bin/GPSCConfigFile.cfg
@@ -177,6 +181,7 @@ lib/hw/gps.tegra.so
 lib/libmcphalgps.so
 lib/libgps.so
 lib/libgpsservices.so
+lib/librilpos.so
 lib/libsupllocationprovider.so
 
 #FM(TI)
