@@ -1,4 +1,21 @@
 #!/bin/sh
+
+SYSDIR=$1
+if [ "x$SYSDIR" = "x" ]; then
+echo "You must specify system directory as first argument";
+exit
+fi
+BASE=../../../vendor/htc/endeavoru/proprietary
+rm -rf $BASE/*
+
+for FILENAME in `egrep -v '(^#|^$)' proprietary-files.txt`; do
+    DIR=`dirname $FILENAME`
+    if [ ! -d $BASE/$DIR ]; then
+        mkdir -p $BASE/$DIR
+    fi
+    cp $SYSDIR/$FILENAME $BASE/$FILENAME
+done
+
 VENDOR=htc
 DEVICE=endeavoru
 OUTDIR=vendor/$VENDOR/$DEVICE
