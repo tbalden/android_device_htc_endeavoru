@@ -212,6 +212,11 @@ PRODUCT_PACKAGES += \
     tinyplay \
     tinycap
 
+# pollyd (respect & thanks to Adrian Ulrich <adrian@blinkenlights.ch> )
+PRODUCT_PACKAGES += \
+    pollyd \
+    Polly
+
 # Wi-Fi
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
