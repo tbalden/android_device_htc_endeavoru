@@ -33,7 +33,6 @@ lib/libcgdrv.so
 lib/libardrv_dynamic.so
 lib/libnvapputil.so
 lib/libnvasfparserhal.so
-lib/libnvaudioservice.so
 lib/libnvaviparserhal.so
 lib/libnvavp.so
 lib/libnvcameracallbacks.so
@@ -116,8 +115,7 @@ etc/firmware/ti-connectivity/wl128x-fw-4-mr.bin
 etc/firmware/ti-connectivity/wl128x-fw-4-plt.bin
 etc/firmware/ti-connectivity/wl128x-fw-4-sr.bin
 
-#Audio
-etc/soundimage/board_version.txt
+#Audio - ICS blobs
 etc/soundimage/CodecDSPID.txt
 etc/soundimage/CodecDSPID_XC.txt
 etc/soundimage/Sound_BT_CarMode.txt
@@ -157,7 +155,7 @@ etc/soundimage/srs_geq10.cfg
 etc/soundimage/srs_global.cfg
 lib/hw/audio_policy.tegra.so
 lib/hw/audio.primary.tegra.so
-lib/libaudioavp.so
+lib/libasound.so
 lib/libcall_volume.so
 
 #GPS/AGPS

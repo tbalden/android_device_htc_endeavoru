@@ -143,10 +143,6 @@ persist.audio.SupportHTCHWAEC=1
 # Export for CS/PS call switch
 persist.audio.AutoSwitchMic=1
 
-# Export for ALT
-htc.audio.swalt.enable=1
-htc.audio.swalt.mingain=14512
-
 # NFC
 debug.nfc.fw_download=true
 debug.nfc.se=true

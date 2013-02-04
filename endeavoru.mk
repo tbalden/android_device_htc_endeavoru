@@ -159,8 +159,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/audio/asound.conf:system/etc/asound.conf \
     $(LOCAL_PATH)/prebuilt/audio/audio_effects.conf:system/etc/audio_effects.conf \
     $(LOCAL_PATH)/prebuilt/audio/DSP_number.txt:system/etc/DSP_number.txt \
-    $(LOCAL_PATH)/prebuilt/audio/alsa.conf:system/usr/share/alsa/alsa.conf \
-    $(LOCAL_PATH)/prebuilt/audio/audio_policy.conf:system/etc/audio_policy.conf
+    $(LOCAL_PATH)/prebuilt/audio/alsa.conf:system/usr/share/alsa/alsa.conf
 
 # misc
 PRODUCT_COPY_FILES += \
