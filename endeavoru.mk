@@ -36,11 +36,6 @@ include frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-# Kernel bin
-LOCAL_KERNEL := device/htc/endeavoru/kernel
-PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
-
 # Init files
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ramdisk/fstab.endeavoru:root/fstab.endeavoru \
@@ -49,33 +44,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ramdisk/init.endeavoru.usb.rc:root/init.endeavoru.usb.rc \
     $(LOCAL_PATH)/ramdisk/init.rc:root/init.rc \
     $(LOCAL_PATH)/ramdisk/ueventd.endeavoru.rc:root/ueventd.endeavoru.rc
-
-# Prebuilt Kernel Modules
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/baseband_usb_chr.ko:system/lib/modules/baseband_usb_chr.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/baseband-xmm-power2.ko:system/lib/modules/baseband-xmm-power2.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/bluetooth.ko:system/lib/modules/bluetooth.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/bnep.ko:system/lib/modules/bnep.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/btwilink.ko:system/lib/modules/btwilink.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/cdc-acm.ko:system/lib/modules/cdc-acm.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/cfg80211.ko:system/lib/modules/cfg80211.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/compat.ko:system/lib/modules/compat.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/fm_drv.ko:system/lib/modules/fm_drv.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/gps_drv.ko:system/lib/modules/gps_drv.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/hci_uart.ko:system/lib/modules/hci_uart.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/hid-magicmouse.ko:system/lib/modules/hid-magicmouse.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/hidp.ko:system/lib/modules/hidp.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/kineto_gan.ko:system/lib/modules/kineto_gan.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/lib80211.ko:system/lib/modules/lib80211.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/mac80211.ko:system/lib/modules/mac80211.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/raw_ip_net.ko:system/lib/modules/raw_ip_net.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/rfcomm.ko:system/lib/modules/rfcomm.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/scsi_wait_scan.ko:system/lib/modules/scsi_wait_scan.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/st_drv.ko:system/lib/modules/st_drv.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/tcrypt.ko:system/lib/modules/tcrypt.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/ti_hci_drv.ko:system/lib/modules/ti_hci_drv.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/wl12xx.ko:system/lib/modules/wl12xx.ko \
-    $(LOCAL_PATH)/prebuilt/kernelmodules/wl12xx_sdio.ko:system/lib/modules/wl12xx_sdio.ko
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \

@@ -94,8 +94,22 @@ WIFI_FIRMWARE_LOADER             := ""
 COMMON_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
 endif
 
-# Prebuilt kernel bin
-TARGET_PREBUILT_KERNEL := device/htc/endeavoru/kernel
+# Kernel
+TARGET_KERNEL_SOURCE := kernel/htc/endeavoru
+TARGET_KERNEL_CONFIG := cyanogenmod_endeavoru_defconfig
+
+# Building wifi modules
+TARGET_MODULES_SOURCE := "kernel/htc/endeavoru/drivers/net/wireless/compat-wireless_R5.SP2.03"
+
+WIFI_MODULES:
+	make -C $(TARGET_MODULES_SOURCE) KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=$(TARGET_ARCH) $(ARM_CROSS_COMPILE)
+	mv kernel/htc/endeavoru/drivers/net/wireless/compat-wireless_R5.SP2.03/compat/compat.ko $(KERNEL_MODULES_OUT)
+	mv kernel/htc/endeavoru/drivers/net/wireless/compat-wireless_R5.SP2.03/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
+	mv kernel/htc/endeavoru/drivers/net/wireless/compat-wireless_R5.SP2.03/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
+	mv kernel/htc/endeavoru/drivers/net/wireless/compat-wireless_R5.SP2.03/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
+	mv kernel/htc/endeavoru/drivers/net/wireless/compat-wireless_R5.SP2.03/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
+
+TARGET_KERNEL_MODULES := WIFI_MODULES
 
 # Avoid the generation of ldrcc instructions
 NEED_WORKAROUND_CORTEX_A9_745320 := true
