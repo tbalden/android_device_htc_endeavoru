@@ -168,3 +168,6 @@ ro.product.hwreset.timer2=8
 
 # HDMI
 ro.hdmi.enable=true
+
+# force gpu rendering(2d drawing) [Nvidia setting - libhtc-opt2.so]
+persist.sys.ui.hw=true
